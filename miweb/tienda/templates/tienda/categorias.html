@@ -1,0 +1,43 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  
+  <div class="row">
+      {% for prod in prod %}
+      <div class="col-md-3">
+          <div class="card" style="width: 100%; margin: 10px 10px;">
+             
+              <img src="{{prod.imagen.url}}" class="card-img-top" alt="">
+              <div class="card-body" style="text-align: center;">
+                  <h6 class="card-title">{{prod.nombre}}-{{prod.marca}}</h6>
+                  <p class="card-text">{{prod.descripcion}}</p>
+                  <p class="btn btn-info">${{prod.precio}}</p>
+              </div>
+              <div class="card-footer text-center">
+                
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'carro:agregar' prod.id %}" class="btn btn-warning">Agregar al Carrito</a>
+                  {% else %}
+                    <a href="{% url 'iniciarSesion' %}" class="btn btn-warning">Inicia Sesión para comprar</a>
+                  
+                    {% endif %}
+            </div>
+         
+          </div>
+      </div>
+          {% endfor %}
+  </div>
+</div>
+
+   
+    <section>
+      <div style="width: 75%; text-align: center; margin: auto; color: white;">
+          Categorias: 
+          {% for categoria in cat %}
+          <a  href="{% url 'categorias' categoria.id %}" class="linksCategorias"> {{categoria.nombre}} </a> &#45; 
+          {% endfor %}
+      </div>
+  </section>
+{% endblock %}

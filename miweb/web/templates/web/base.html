@@ -1,0 +1,139 @@
+<html>
+
+<head>
+
+{% load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'web/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+     <!-- Fonts -->
+    
+     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+     
+
+    <!-- Styles -->
+    <link href="{% static 'web/css/gestion.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+      
+        <span class="site-heading-lower">MUSIC PRO</span>
+      </h1>
+    
+      <!--valor del dolar -->
+      {% if request.user.is_authenticated %}
+     <div style="text-align: right; color:aliceblue; margin-right:100px">
+     
+      Valor Dolar: {{ valor_dolar }} | Hoy: {{ fecha|date:"d-m-Y"}}
+     </div>
+     {% endif %}
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'home' %}">Gestión de Pedidos</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive ">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'home' %}">Inicio</a>
+          </li>
+         
+          <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'tienda' %}">Tienda</a>
+          </li>
+          <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'contacto' %}">Contacto</a>
+          </li>
+          
+          
+          {% if request.user.is_authenticated %}
+          
+          
+          <li class="nav-item {% if request.path == '/carrito/' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'carro:carrito' %}">Carrito - {{ cantidad_productos }}</a>
+           
+          </li>
+          
+                  
+             
+          <li class="nav-item px-lg-4 text-center">
+          <a href="#" class="nav-link text-uppercase text-expanded">{{ request.user.first_name }}</a>
+          <a href="{% url 'cerrarSesion' %}" class="nav-link text-uppercase text-expanded">Cerrar Sesión </a>
+        </li>
+        
+          {% else %}
+          
+          <li class="nav-item {% if request.path == '/login/' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'iniciarSesion' %}">Login</a>
+          </li>
+          
+
+          
+          {% endif %}
+          
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+   
+
+
+    <!-- Footer -->
+    <footer class="footer text-faded text-center py-5">
+      <div class="container">
+        <p class="m-0">
+	        <a href="#" class="link">
+	          <span class="fa-stack fa-lg">
+	            <i class="fa fa-circle fa-stack-2x"></i>
+	            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+	          </span>
+	        </a>
+	        <a href="#" class="link">
+	          <span class="fa-stack fa-lg">
+	            <i class="fa fa-circle fa-stack-2x"></i>
+	            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+	          </span>
+	        </a>
+	        <a href="#" class="link">
+	          <span class="fa-stack fa-lg">
+	            <i class="fa fa-circle fa-stack-2x"></i>
+	            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+	          </span>
+	        </a>
+	    </p>
+      {% if request.user.is_authenticated %}
+      <div>
+        <p>Hoy es: {{ fecha|date:"d/m/Y"}}</p>
+        <p>Valor del dólar: {{ valor_dolar }}</p>
+      </div>
+    {% endif %}
+        <p class="m-0 mbt">
+        	<a href="sample.html" class="link">Política de privacidad</a> ·
+        	<a href="sample.html" class="link">Aviso legal</a> ·
+        	<a href="sample.html" class="link">Cookies</a>
+		</p>
+        <p class="m-0 mbt1">&copy; MusicPro</p>
+      </div>
+	</footer>
+
+    <!-- Bootstrap -->
+    <script src="{% static 'web/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'web/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+
+</html>

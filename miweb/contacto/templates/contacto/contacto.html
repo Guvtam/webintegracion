@@ -1,0 +1,23 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contenedorForm">
+    {% if "valido" in request.GET %}
+
+        <p style="color:white; ">Información enviada correctamente !!</p>
+
+    {% endif %}
+    <form action="" method="POST">
+    <table style="color:white; margin: 20px auto;">
+        {% csrf_token %}
+        
+            {{form.as_table}}
+           
+       
+    </table>
+    <input class="btn btn-primary" type="submit" value="Enviar"></input>
+</form>
+    
+</div>
+{% endblock %}
